@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Student Scholarship Monitoring and Academic Compliance System - Centralized scholar records, grade submissions, compliance checking, and management reporting.">
     <title>ScholarTrack — Scholarship Monitoring System</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/enhancements.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- Login Screen -->
@@ -22,28 +24,11 @@
         <div class="login-card">
             <div class="login-logo">
                 <div class="logo-icon">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                        <path d="M20 2L4 10L20 18L36 10L20 2Z" fill="url(#grad1)"/>
-                        <path d="M4 10V26L20 34V18L4 10Z" fill="url(#grad2)" opacity="0.8"/>
-                        <path d="M36 10V26L20 34V18L36 10Z" fill="url(#grad3)" opacity="0.6"/>
-                        <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="36" y2="18">
-                                <stop stop-color="#6366f1"/>
-                                <stop offset="1" stop-color="#8b5cf6"/>
-                            </linearGradient>
-                            <linearGradient id="grad2" x1="4" y1="10" x2="20" y2="34">
-                                <stop stop-color="#6366f1"/>
-                                <stop offset="1" stop-color="#4f46e5"/>
-                            </linearGradient>
-                            <linearGradient id="grad3" x1="36" y1="10" x2="20" y2="34">
-                                <stop stop-color="#a78bfa"/>
-                                <stop offset="1" stop-color="#8b5cf6"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img src="images/logo.png" alt="Agusan del Sur State University Logo" class="brand-logo-img">
                 </div>
                 <h1>ScholarTrack</h1>
-                <p>Scholarship Monitoring System</p>
+                <p class="login-inst-name">Agusan del Sur State University</p>
+                <p class="login-sub-name">Scholarship Monitoring &amp; Academic Compliance System</p>
             </div>
             <form id="login-form" onsubmit="return false;">
                 <div class="form-group">
@@ -72,12 +57,11 @@
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
-                        <path d="M20 2L4 10L20 18L36 10L20 2Z" fill="#818cf8"/>
-                        <path d="M4 10V26L20 34V18L4 10Z" fill="#6366f1" opacity="0.8"/>
-                        <path d="M36 10V26L20 34V18L36 10Z" fill="#a78bfa" opacity="0.6"/>
-                    </svg>
-                    <span>ScholarTrack</span>
+                    <img src="images/logo.png" alt="ADSSU Logo" class="sidebar-logo-img">
+                    <div class="sidebar-logo-text">
+                        <span class="sidebar-title">ScholarTrack</span>
+                        <span class="sidebar-sub">ADSSU</span>
+                    </div>
                 </div>
                 <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>

@@ -90,12 +90,14 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--gray-50);
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.95) 100%),
+                url('../images/bg-login.jpg') center center / cover no-repeat fixed;
     color: var(--gray-800);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 /* ==================
@@ -106,7 +108,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-950) 50%, #1a1040 100%);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(2, 6, 23, 0.88) 50%, rgba(26, 16, 64, 0.84) 100%),
+                url('../images/bg-login.jpg') center center / cover no-repeat fixed;
     position: relative;
     overflow: hidden;
 }
@@ -167,14 +170,14 @@ body {
 .login-card {
     position: relative;
     width: 100%;
-    max-width: 420px;
-    padding: 48px 40px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 440px;
+    padding: 44px 38px;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 24px;
-    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
     animation: slideUp 0.6s ease-out;
 }
 
@@ -185,31 +188,57 @@ body {
 
 .login-logo {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
 }
 
 .logo-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: rgba(99, 102, 241, 0.15);
-    border-radius: 16px;
+    width: 88px;
+    height: 88px;
+    background: #ffffff;
+    border-radius: 22px;
     margin-bottom: 16px;
+    padding: 8px;
+    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.2);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.logo-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 16px 36px -4px rgba(99, 102, 241, 0.45), 0 0 0 3px rgba(99, 102, 241, 0.35);
+}
+
+.brand-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
 }
 
 .login-logo h1 {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     font-weight: 800;
     color: #fff;
     letter-spacing: -0.02em;
 }
 
-.login-logo p {
-    color: var(--gray-400);
-    font-size: 0.875rem;
+.login-inst-name {
+    color: #e2e8f0;
+    font-size: 0.9375rem;
+    font-weight: 600;
     margin-top: 4px;
+    letter-spacing: 0.01em;
+}
+
+.login-sub-name {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
 }
 
 .login-screen .form-group {
@@ -357,6 +386,8 @@ body {
 .app-shell {
     display: flex;
     min-height: 100vh;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.95) 100%),
+                url('../images/bg-login.jpg') center center / cover no-repeat fixed;
 }
 
 /* Sidebar */
@@ -366,20 +397,22 @@ body {
     left: 0;
     width: var(--sidebar-width);
     height: 100vh;
-    background: var(--gray-900);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 100%),
+                url('../images/bg-login.jpg') center top / cover no-repeat;
     display: flex;
     flex-direction: column;
     z-index: 100;
     transition: var(--transition-base);
     overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 18px 18px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-logo {
@@ -388,11 +421,42 @@ body {
     gap: 12px;
 }
 
-.sidebar-logo span {
-    font-size: 1.125rem;
+.sidebar-logo-img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.sidebar-logo-img:hover {
+    transform: scale(1.08);
+}
+
+.sidebar-logo-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sidebar-logo-text .sidebar-title {
+    font-size: 1.0625rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.sidebar-logo-text .sidebar-sub {
+    font-size: 0.6875rem;
+    color: var(--primary-300);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .sidebar-toggle {
@@ -528,8 +592,10 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 20px 32px;
-    background: #fff;
-    border-bottom: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
     position: sticky;
     top: 0;
     z-index: 50;
@@ -601,10 +667,12 @@ body {
     align-items: center;
     gap: 16px;
     padding: 24px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--border-radius);
-    border: 1px solid var(--gray-200);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
     transition: var(--transition-fast);
     position: relative;
     overflow: hidden;
@@ -669,10 +737,12 @@ body {
    CARDS
    ================== */
 .card {
-    background: #fff;
-    border: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
     overflow: hidden;
 }
 
@@ -903,11 +973,13 @@ body {
 }
 
 .program-card {
-    background: #fff;
-    border: 1px solid var(--gray-200);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: var(--border-radius);
     padding: 24px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
     transition: var(--transition-fast);
     position: relative;
     overflow: hidden;
@@ -988,8 +1060,9 @@ body {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -999,9 +1072,12 @@ body {
 }
 
 .modal {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     width: 100%;
     max-width: 560px;
     max-height: 90vh;
