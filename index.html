@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Scholarship Monitoring and Academic Compliance System - Centralized scholar records, grade submissions, compliance checking, and management reporting.">
+    <title>ScholarTrack — Scholarship Monitoring System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 2L4 10L20 18L36 10L20 2Z" fill="url(#grad1)"/>
+                        <path d="M4 10V26L20 34V18L4 10Z" fill="url(#grad2)" opacity="0.8"/>
+                        <path d="M36 10V26L20 34V18L36 10Z" fill="url(#grad3)" opacity="0.6"/>
+                        <defs>
+                            <linearGradient id="grad1" x1="4" y1="2" x2="36" y2="18">
+                                <stop stop-color="#6366f1"/>
+                                <stop offset="1" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                            <linearGradient id="grad2" x1="4" y1="10" x2="20" y2="34">
+                                <stop stop-color="#6366f1"/>
+                                <stop offset="1" stop-color="#4f46e5"/>
+                            </linearGradient>
+                            <linearGradient id="grad3" x1="36" y1="10" x2="20" y2="34">
+                                <stop stop-color="#a78bfa"/>
+                                <stop offset="1" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1>ScholarTrack</h1>
+                <p>Scholarship Monitoring System</p>
+            </div>
+            <form id="login-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" id="login-btn" class="btn btn-primary btn-full" onclick="handleLogin()">
+                    <span>Sign In</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <div id="login-error" class="login-error hidden"></div>
+            </form>
+            <div class="login-footer">
+                <p>Student Scholarship Monitoring &amp; Academic Compliance System</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Shell -->
+    <div id="app-shell" class="app-shell hidden">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 2L4 10L20 18L36 10L20 2Z" fill="#818cf8"/>
+                        <path d="M4 10V26L20 34V18L4 10Z" fill="#6366f1" opacity="0.8"/>
+                        <path d="M36 10V26L20 34V18L36 10Z" fill="#a78bfa" opacity="0.6"/>
+                    </svg>
+                    <span>ScholarTrack</span>
+                </div>
+                <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="scholars" onclick="navigateTo('scholars')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>Scholars</span>
+                </a>
+                <a href="#" class="nav-item" data-page="programs" onclick="navigateTo('programs')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+                    <span>Scholarship Programs</span>
+                </a>
+                <a href="#" class="nav-item" data-page="submissions" onclick="navigateTo('submissions')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span>Grade Submissions</span>
+                </a>
+                <a href="#" class="nav-item" data-page="compliance" onclick="navigateTo('compliance')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Compliance</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">A</div>
+                    <div class="user-details">
+                        <span id="user-name">Admin User</span>
+                        <span id="user-role" class="user-role-badge">Staff</span>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="handleLogout()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            <!-- Page Header -->
+            <header class="page-header">
+                <div class="page-header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                    </button>
+                    <div>
+                        <h1 id="page-title">Dashboard</h1>
+                        <p id="page-subtitle" class="page-subtitle">Overview of scholarship monitoring metrics</p>
+                    </div>
+                </div>
+                <div class="page-header-right">
+                    <span class="current-date" id="current-date"></span>
+                </div>
+            </header>
+
+            <!-- Dashboard Page -->
+            <div id="page-dashboard" class="page active">
+                <div class="dashboard-grid">
+                    <div class="stat-card stat-card-indigo">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-total-scholars">0</span>
+                            <span class="stat-label">Total Scholars</span>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-amber">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-pending">0</span>
+                            <span class="stat-label">Pending Submissions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-emerald">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-verified">0</span>
+                            <span class="stat-label">Verified Submissions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-green">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-compliant">0</span>
+                            <span class="stat-label">Compliant Scholars</span>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-rose">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-deficiency">0</span>
+                            <span class="stat-label">With Deficiency</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recent Activity Table -->
+                <div class="card mt-6">
+                    <div class="card-header">
+                        <h2>Recent Grade Submissions</h2>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Scholar</th>
+                                    <th>Program</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>GWA</th>
+                                    <th>Status</th>
+                                    <th>Submitted</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-recent-submissions">
+                                <tr><td colspan="7" class="empty-state">No submissions yet</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scholars Page -->
+            <div id="page-scholars" class="page">
+                <div class="page-actions">
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="scholar-search" placeholder="Search by Student ID or Name..." oninput="searchScholars()">
+                        </div>
+                        <select id="scholar-filter-program" class="filter-select" onchange="filterScholars()">
+                            <option value="">All Programs</option>
+                        </select>
+                        <select id="scholar-filter-status" class="filter-select" onchange="filterScholars()">
+                            <option value="">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Pending Submission">Pending Submission</option>
+                            <option value="For Verification">For Verification</option>
+                            <option value="Compliant">Compliant</option>
+                            <option value="With Deficiency">With Deficiency</option>
+                            <option value="Probationary">Probationary</option>
+                            <option value="For Renewal">For Renewal</option>
+                            <option value="Renewed">Renewed</option>
+                            <option value="Disqualified">Disqualified</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="openScholarModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span>Add Scholar</span>
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Full Name</th>
+                                    <th>Degree Program</th>
+                                    <th>Year Level</th>
+                                    <th>Scholarship</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scholars-table-body">
+                                <tr><td colspan="7" class="empty-state">No scholars registered yet</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scholarship Programs Page -->
+            <div id="page-programs" class="page">
+                <div class="page-actions">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="openProgramModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span>Add Program</span>
+                    </button>
+                </div>
+                <div class="programs-grid" id="programs-grid">
+                    <div class="empty-state-card">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+                        <p>No scholarship programs configured yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade Submissions Page -->
+            <div id="page-submissions" class="page">
+                <div class="page-actions">
+                    <div class="search-filter-bar">
+                        <select id="submission-filter-status" class="filter-select" onchange="filterSubmissions()">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Returned">Returned</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="openSubmissionModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span>New Submission</span>
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Scholar</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>GWA</th>
+                                    <th>Units</th>
+                                    <th>Failed</th>
+                                    <th>INC</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissions-table-body">
+                                <tr><td colspan="9" class="empty-state">No grade submissions yet</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Page -->
+            <div id="page-compliance" class="page">
+                <div class="page-actions">
+                    <div class="search-filter-bar">
+                        <select id="compliance-filter" class="filter-select" onchange="filterCompliance()">
+                            <option value="">All Results</option>
+                            <option value="Compliant">Compliant</option>
+                            <option value="With Deficiency">With Deficiency</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Scholar</th>
+                                    <th>Scholarship</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>GWA</th>
+                                    <th>Req. GWA</th>
+                                    <th>Units</th>
+                                    <th>Req. Units</th>
+                                    <th>Failed</th>
+                                    <th>Evaluation</th>
+                                    <th>Deficiencies</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compliance-table-body">
+                                <tr><td colspan="11" class="empty-state">No compliance evaluations yet. Verify grade submissions first.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scholar Modal -->
+    <div id="scholar-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="scholar-modal-title">Add New Scholar</h2>
+                <button class="modal-close" onclick="closeScholarModal()">&times;</button>
+            </div>
+            <form id="scholar-form" onsubmit="return false;">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scholar-student-id">Student ID <span class="required">*</span></label>
+                            <input type="text" id="scholar-student-id" placeholder="e.g., 2024-00001" required>
+                            <span class="field-error" id="error-student-id"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholar-full-name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="scholar-full-name" placeholder="Last, First Middle" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scholar-degree">Degree Program <span class="required">*</span></label>
+                            <input type="text" id="scholar-degree" placeholder="e.g., BS Computer Science" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholar-year">Year Level <span class="required">*</span></label>
+                            <select id="scholar-year" required>
+                                <option value="">Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                                <option value="5">5th Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scholar-scholarship">Scholarship Program <span class="required">*</span></label>
+                            <select id="scholar-scholarship" required>
+                                <option value="">Select Scholarship</option>
+                            </select>
+                            <span class="field-error" id="error-scholarship"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholar-status">Status</label>
+                            <select id="scholar-status">
+                                <option value="Active">Active</option>
+                                <option value="Pending Submission">Pending Submission</option>
+                                <option value="For Verification">For Verification</option>
+                                <option value="Compliant">Compliant</option>
+                                <option value="With Deficiency">With Deficiency</option>
+                                <option value="Probationary">Probationary</option>
+                                <option value="For Renewal">For Renewal</option>
+                                <option value="Renewed">Renewed</option>
+                                <option value="Disqualified">Disqualified</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeScholarModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="scholar-save-btn" onclick="saveScholar()">Save Scholar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Program Modal -->
+    <div id="program-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="program-modal-title">Add Scholarship Program</h2>
+                <button class="modal-close" onclick="closeProgramModal()">&times;</button>
+            </div>
+            <form id="program-form" onsubmit="return false;">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="program-name">Program Name <span class="required">*</span></label>
+                        <input type="text" id="program-name" placeholder="e.g., DOST-SEI Merit Scholarship" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program-gwa">Required GWA (Maximum) <span class="required">*</span></label>
+                            <input type="number" id="program-gwa" step="0.01" min="1.00" max="5.00" placeholder="e.g., 1.75" required>
+                            <small class="field-hint">Scholar GWA must be ≤ this value (lower is better)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="program-units">Minimum Units <span class="required">*</span></label>
+                            <input type="number" id="program-units" min="0" placeholder="e.g., 18" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program-failing">Allow Failing Grades?</label>
+                            <select id="program-failing">
+                                <option value="false">No — Failing grades not allowed</option>
+                                <option value="true">Yes — Failing grades allowed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="program-active">Program Status</label>
+                            <select id="program-active">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeProgramModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="program-save-btn" onclick="saveProgram()">Save Program</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grade Submission Modal -->
+    <div id="submission-modal" class="modal-overlay hidden">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2>New Grade Submission</h2>
+                <button class="modal-close" onclick="closeSubmissionModal()">&times;</button>
+            </div>
+            <form id="submission-form" onsubmit="return false;">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sub-scholar">Scholar <span class="required">*</span></label>
+                            <select id="sub-scholar" required>
+                                <option value="">Select Scholar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sub-ay">Academic Year <span class="required">*</span></label>
+                            <input type="text" id="sub-ay" placeholder="e.g., 2025-2026" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sub-semester">Semester <span class="required">*</span></label>
+                            <select id="sub-semester" required>
+                                <option value="">Select Semester</option>
+                                <option value="1st Semester">1st Semester</option>
+                                <option value="2nd Semester">2nd Semester</option>
+                                <option value="Summer">Summer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sub-gwa">GWA <span class="required">*</span></label>
+                            <input type="number" id="sub-gwa" step="0.01" min="1.00" max="5.00" placeholder="e.g., 1.50" required>
+                            <small class="field-hint">Valid range: 1.00 – 5.00</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="sub-units">Units Enrolled <span class="required">*</span></label>
+                            <input type="number" id="sub-units" min="0" placeholder="e.g., 21" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sub-failed">Failed Subjects</label>
+                            <input type="number" id="sub-failed" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="sub-inc">Incomplete Subjects</label>
+                            <input type="number" id="sub-inc" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeSubmissionModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" onclick="saveSubmission()">Submit Grades</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/scholars.js"></script>
+    <script src="js/programs.js"></script>
+    <script src="js/submissions.js"></script>
+    <script src="js/compliance.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
