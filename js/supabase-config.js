@@ -7,8 +7,8 @@
 // 3. Copy the "Project URL" and "anon public" key
 // ============================================
 
-const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const SUPABASE_URL = 'https://qdruipcdpdvxsknreiro.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkcnVpcGNkcGR2eHNrbnJlaXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MTAyMzYsImV4cCI6MjEwNjI4NjIzNn0.t7bV_4W7h8kwX2e8ZLjn-Yhbl5tJs5lpD5JF1YGwG14';
 
 // Import Supabase client from CDN
 // We load it dynamically to avoid module issues with GitHub Pages
