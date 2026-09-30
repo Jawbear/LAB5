@@ -14,7 +14,7 @@ let allEvaluations = [];
 async function evaluateCompliance(submissionId) {
     try {
         // Get the submission with scholar and scholarship details
-        const { data: submission, error: subError } = await supabase
+        const { data: submission, error: subError } = await window.db
             .from('grade_submissions')
             .select(`
                 *,
@@ -74,14 +74,14 @@ async function evaluateCompliance(submissionId) {
         const deficiencyText = deficiencies.length > 0 ? deficiencies.join('; ') : null;
 
         // Update scholar status — BR-07: Scholar status must be based on scholarship rules
-        await supabase
+        await window.db
             .from('scholars')
             .update({ status: evaluationResult })
             .eq('id', scholar.id);
 
         // Store/update evaluation record in grade_submissions (using a separate approach)
         // We'll update the submission itself with the evaluation result
-        await supabase
+        await window.db
             .from('grade_submissions')
             .update({
                 evaluation_result: evaluationResult,
@@ -108,7 +108,7 @@ async function evaluateCompliance(submissionId) {
 async function loadCompliance() {
     try {
         // Load all verified & evaluated submissions
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('grade_submissions')
             .select(`
                 *,

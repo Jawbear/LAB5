@@ -8,7 +8,7 @@ let allSubmissions = [];
 
 async function loadSubmissions() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('grade_submissions')
             .select(`
                 *,
@@ -89,7 +89,7 @@ async function loadScholarDropdown() {
     select.innerHTML = '<option value="">Select Scholar</option>';
 
     try {
-        const { data } = await supabase
+        const { data } = await window.db
             .from('scholars')
             .select('id, student_id, full_name')
             .order('full_name');
@@ -162,14 +162,14 @@ async function saveSubmission() {
     };
 
     try {
-        const { error } = await supabase
+        const { error } = await window.db
             .from('grade_submissions')
             .insert([submissionData]);
 
         if (error) throw error;
 
         // Update scholar status to "For Verification"
-        await supabase
+        await window.db
             .from('scholars')
             .update({ status: 'For Verification' })
             .eq('id', scholarId);
@@ -194,7 +194,7 @@ async function verifySubmission(submissionId) {
 
     try {
         // BR-09: A submission cannot be verified twice without an authorized correction process
-        const { data: sub } = await supabase
+        const { data: sub } = await window.db
             .from('grade_submissions')
             .select('submission_status, scholar_id')
             .eq('id', submissionId)
@@ -205,7 +205,7 @@ async function verifySubmission(submissionId) {
             return;
         }
 
-        const { error } = await supabase
+        const { error } = await window.db
             .from('grade_submissions')
             .update({
                 submission_status: 'Verified',

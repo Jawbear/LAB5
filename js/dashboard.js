@@ -14,30 +14,30 @@ async function loadDashboard() {
 async function loadDashboardStats() {
     try {
         // Total active scholars
-        const { count: totalScholars } = await supabase
+        const { count: totalScholars } = await window.db
             .from('scholars')
             .select('*', { count: 'exact', head: true });
 
         // Pending grade submissions
-        const { count: pendingCount } = await supabase
+        const { count: pendingCount } = await window.db
             .from('grade_submissions')
             .select('*', { count: 'exact', head: true })
             .eq('submission_status', 'Pending');
 
         // Verified submissions
-        const { count: verifiedCount } = await supabase
+        const { count: verifiedCount } = await window.db
             .from('grade_submissions')
             .select('*', { count: 'exact', head: true })
             .eq('submission_status', 'Verified');
 
         // Compliant scholars
-        const { count: compliantCount } = await supabase
+        const { count: compliantCount } = await window.db
             .from('scholars')
             .select('*', { count: 'exact', head: true })
             .eq('status', 'Compliant');
 
         // With Deficiency scholars
-        const { count: deficiencyCount } = await supabase
+        const { count: deficiencyCount } = await window.db
             .from('scholars')
             .select('*', { count: 'exact', head: true })
             .eq('status', 'With Deficiency');
@@ -78,7 +78,7 @@ function animateCounter(elementId, targetValue) {
 
 async function loadRecentSubmissions() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('grade_submissions')
             .select(`
                 *,

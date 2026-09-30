@@ -9,7 +9,7 @@ let editingScholarId = null;
 
 async function loadScholars() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('scholars')
             .select(`
                 *,
@@ -84,7 +84,7 @@ function closeScholarModal() {
 
 async function editScholar(id) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('scholars')
             .select('*')
             .eq('id', id)
@@ -142,7 +142,7 @@ async function saveScholar() {
 
     // Check uniqueness of Student ID
     if (!editingScholarId) {
-        const { data: existing } = await supabase
+        const { data: existing } = await window.db
             .from('scholars')
             .select('id')
             .eq('student_id', studentId)
@@ -165,14 +165,14 @@ async function saveScholar() {
 
     try {
         if (editingScholarId) {
-            const { error } = await supabase
+            const { error } = await window.db
                 .from('scholars')
                 .update(scholarData)
                 .eq('id', editingScholarId);
             if (error) throw error;
             showToast('Scholar updated successfully!', 'success');
         } else {
-            const { error } = await supabase
+            const { error } = await window.db
                 .from('scholars')
                 .insert([scholarData]);
             if (error) throw error;
@@ -222,7 +222,7 @@ async function populateScholarFilters() {
     select.innerHTML = '<option value="">All Programs</option>';
 
     try {
-        const { data } = await supabase
+        const { data } = await window.db
             .from('scholarship_programs')
             .select('id, program_name')
             .eq('active', true)
@@ -243,7 +243,7 @@ async function loadScholarshipDropdown(selectId) {
     select.innerHTML = '<option value="">Select Scholarship</option>';
 
     try {
-        const { data } = await supabase
+        const { data } = await window.db
             .from('scholarship_programs')
             .select('id, program_name')
             .eq('active', true)

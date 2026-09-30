@@ -22,7 +22,7 @@ async function handleLogin() {
     loginBtn.innerHTML = '<span>Signing in...</span>';
 
     try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await window.db.auth.signInWithPassword({
             email: email,
             password: password
         });
@@ -44,7 +44,7 @@ async function handleLogin() {
 
 async function handleLogout() {
     try {
-        await supabase.auth.signOut();
+        await window.db.auth.signOut();
         currentUser = null;
         currentProfile = null;
         showLogin();
@@ -57,7 +57,7 @@ async function handleLogout() {
 
 async function loadUserProfile() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('profiles')
             .select('*')
             .eq('id', currentUser.id)
@@ -81,7 +81,7 @@ async function loadUserProfile() {
 
 async function checkSession() {
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await window.db.auth.getSession();
         if (session) {
             currentUser = session.user;
             await loadUserProfile();

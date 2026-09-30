@@ -9,7 +9,7 @@ let editingProgramId = null;
 
 async function loadPrograms() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('scholarship_programs')
             .select('*')
             .order('program_name', { ascending: true });
@@ -89,7 +89,7 @@ function closeProgramModal() {
 
 async function editProgram(id) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await window.db
             .from('scholarship_programs')
             .select('*')
             .eq('id', id)
@@ -143,14 +143,14 @@ async function saveProgram() {
 
     try {
         if (editingProgramId) {
-            const { error } = await supabase
+            const { error } = await window.db
                 .from('scholarship_programs')
                 .update(programData)
                 .eq('id', editingProgramId);
             if (error) throw error;
             showToast('Program updated successfully!', 'success');
         } else {
-            const { error } = await supabase
+            const { error } = await window.db
                 .from('scholarship_programs')
                 .insert([programData]);
             if (error) throw error;
